@@ -8,7 +8,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.app.praktikum_kel1_2.screen.HomeScreen
+import com.app.praktikum_kel1_2.screen.LoginScreen
 import com.app.praktikum_kel1_2.screen.ProfileScreen
+import com.app.praktikum_kel1_2.screen.RegisterScreen
 import com.app.praktikum_kel1_2.screen.ResultScreen
 
 /**
@@ -23,7 +25,7 @@ fun SetupNavGraph(navController: NavHostController, modifier: Modifier = Modifie
     // Membuat NavHost untuk mengatur semua rute
     NavHost(
         navController = navController,
-        startDestination = Screen.Home.route, // Halaman awal aplikasi
+        startDestination = Screen.Login.route, // Halaman awal aplikasi
         modifier = modifier
     ) {
 
@@ -50,6 +52,16 @@ fun SetupNavGraph(navController: NavHostController, modifier: Modifier = Modifie
             route = Screen.Profile.route
         ) {
             ProfileScreen(navController)
+        }
+
+        // Halaman Login
+        composable(route = Screen.Login.route) {
+            LoginScreen(navController)
+        }
+
+        // Halaman Register
+        composable(route = Screen.Register.route) {
+            RegisterScreen(navController)
         }
     }
 }
