@@ -6,17 +6,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
-// Halaman Profile sederhana
+/**
+ * Composable `ProfileScreen` digunakan untuk menampilkan halaman profil pengguna.
+ * Saat ini hanya menampilkan teks statis sebagai placeholder.
+ *
+ * @param navController controller navigasi, disediakan untuk kebutuhan navigasi meskipun belum digunakan.
+ */
 @Composable
 fun ProfileScreen(navController: NavController) {
-    Text("Ini Profile Screen") // Menampilkan teks statis
+    Text("Ini Profile Screen")
 }
 
-// Preview halaman Profile di Android Studio
-@Composable
+/**
+ * Preview `ProfileScreen` untuk dilihat pada Android Studio Preview.
+ * Menggunakan `rememberNavController` sebagai controller dummy.
+ */
 @Preview(showBackground = true)
+@Composable
 fun PrfileScreenView() {
     ProfileScreen(
-        navController = rememberNavController() // Controller dummy hanya untuk preview
+        navController = rememberNavController()
     )
 }

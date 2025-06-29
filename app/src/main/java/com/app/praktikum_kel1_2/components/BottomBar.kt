@@ -21,19 +21,30 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.app.praktikum_kel1_2.navigation.Screen
 
-// Data class untuk menyimpan item navigasi bawah
+/**
+ * Data class `BottomNavItem` merepresentasikan satu item pada navigasi bawah (BottomBar).
+ *
+ * @param route rute navigasi dari halaman yang akan dituju.
+ * @param icon composable yang merepresentasikan ikon tampilan dari item ini.
+ */
 data class BottomNavItem(
     val route: String,
     val icon: @Composable () -> Unit
 )
 
-// Komponen utama BottomBar
+/**
+ * Composable `BottomBar` menampilkan bilah navigasi bawah dengan dua item utama:
+ * Home dan Profile. Menyesuaikan tampilan berdasarkan halaman aktif.
+ *
+ * @param navController controller navigasi untuk mengatur navigasi antar halaman.
+ * @param modifier modifier opsional untuk penyesuaian tampilan luar komponen.
+ */
 @Composable
 fun BottomBar(navController: NavHostController, modifier: Modifier = Modifier) {
-    // Ambil route saat ini dari NavController
+    // Mendapatkan route halaman yang sedang aktif
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
 
-    // Daftar item menu navigasi bawah
+    // Daftar item menu yang tersedia di navigasi bawah
     val itemsMenu = listOf(
         BottomNavItem(Screen.Home.route) {
             Icon(imageVector = Icons.Default.Home, contentDescription = "Home")
@@ -43,7 +54,7 @@ fun BottomBar(navController: NavHostController, modifier: Modifier = Modifier) {
         }
     )
 
-    // Tampilan background BottomBar
+    // Tampilan dasar background BottomBar
     Surface(
         tonalElevation = 4.dp,
         color = Color.White,
@@ -51,13 +62,12 @@ fun BottomBar(navController: NavHostController, modifier: Modifier = Modifier) {
             .fillMaxWidth()
             .height(72.dp)
     ) {
-        // Susun item navigasi secara horizontal
+        // Susunan horizontal item menu
         Row(
             modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Tampilkan setiap item menu
             itemsMenu.forEach { item ->
                 BottomBarItem(item, currentRoute, navController)
             }
@@ -65,17 +75,23 @@ fun BottomBar(navController: NavHostController, modifier: Modifier = Modifier) {
     }
 }
 
-// Komponen individual untuk setiap item pada BottomBar
+/**
+ * Composable `BottomBarItem` merepresentasikan satu item di dalam BottomBar.
+ * Menampilkan ikon dan label serta menangani logika navigasi dan animasi.
+ *
+ * @param item objek item navigasi bawah.
+ * @param currentRoute route halaman yang sedang aktif saat ini.
+ * @param navController controller navigasi untuk berpindah halaman.
+ */
 @Composable
 fun BottomBarItem(
     item: BottomNavItem,
     currentRoute: String?,
     navController: NavHostController
 ) {
-    // Cek apakah item ini yang sedang aktif
     val isSelected = currentRoute == item.route
 
-    // Atur animasi saat ukuran berubah (ikon & teks)
+    // Animasi perubahan ukuran ikon dan teks ketika dipilih
     val floatAnimSpec = tween<Float>(700, easing = FastOutSlowInEasing)
 
     val iconSize by animateFloatAsState(
@@ -90,17 +106,15 @@ fun BottomBarItem(
         label = "textSize"
     )
 
-    // Warna ikon saat aktif dan tidak aktif
     val iconColor = if (isSelected) Color(0xFF27548A) else Color.Gray
 
-    // Tampilan visual untuk satu item navigasi
+    // Tampilan satu item navigasi
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .width(72.dp)
             .clickable {
-                // Navigasi hanya dijalankan jika belum berada di halaman tersebut
                 if (!isSelected) {
                     navController.navigate(item.route) {
                         popUpTo(Screen.Home.route) { inclusive = false }
@@ -109,7 +123,6 @@ fun BottomBarItem(
                 }
             }
     ) {
-        // Tampilkan ikon dengan warna sesuai status aktif/tidak
         CompositionLocalProvider(LocalContentColor provides iconColor) {
             Box(modifier = Modifier.size(iconSize.dp)) {
                 item.icon()
@@ -118,7 +131,6 @@ fun BottomBarItem(
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        // Tampilkan teks route sebagai label
         Text(
             text = item.route.replaceFirstChar { it.uppercase() },
             color = iconColor,
@@ -128,7 +140,10 @@ fun BottomBarItem(
     }
 }
 
-// Preview untuk menampilkan BottomBar di tampilan pratinjau Android Studio
+/**
+ * Preview `BottomBar` yang ditampilkan di Android Studio Preview.
+ * Menggunakan NavController dummy untuk pratinjau tampilan.
+ */
 @Preview(showBackground = true)
 @Composable
 fun BottomBarPreview() {

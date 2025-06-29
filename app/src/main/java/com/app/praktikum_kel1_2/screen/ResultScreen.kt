@@ -13,38 +13,52 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.app.praktikum_kel1_2.navigation.Screen
 
-// Halaman hasil yang menerima input nama dari HomeScreen
+/**
+ * Composable `ResultScreen` menampilkan halaman hasil setelah pengguna mengisi data di HomeScreen.
+ * Halaman ini menerima nama sebagai parameter dan menampilkan ucapan sapaan,
+ * serta tombol untuk kembali ke halaman Home.
+ *
+ * @param name nama pengguna yang diterima dari halaman sebelumnya.
+ * @param navController controller navigasi untuk kembali ke halaman Home.
+ */
 @Composable
 fun ResultScreen(name: String, navController: NavController) {
-    // Box untuk menempatkan isi di tengah layar
+    // Box digunakan untuk menempatkan isi di tengah layar
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        // Kolom berisi salam dan tombol kembali
+        // Kolom vertikal berisi teks dan tombol
         Column(modifier = Modifier.padding(16.dp)) {
-            // Teks sapaan dengan gaya headline
+            // Menampilkan sapaan kepada pengguna
             Text(
                 text = "Halo, $name!",
                 style = MaterialTheme.typography.headlineMedium
             )
 
+            Spacer(modifier = Modifier.height(16.dp))
+
             // Tombol untuk kembali ke halaman Home
-            Button(onClick = {
-                navController.navigate(route = Screen.Home.route)
-            }) {
+            Button(
+                onClick = {
+                    navController.navigate(route = Screen.Home.route)
+                }
+            ) {
                 Text("Kembali")
             }
         }
     }
 }
 
-// Preview halaman ResultScreen di Android Studio
-@Composable
+/**
+ * Preview `ResultScreen` untuk tampilan di Android Studio Preview.
+ * Menggunakan `rememberNavController` sebagai dummy NavController.
+ */
 @Preview(showBackground = true)
+@Composable
 fun ResultPreview() {
     ResultScreen(
-        name = "",
-        navController = rememberNavController() // Controller dummy untuk preview
+        name = "Preview User",
+        navController = rememberNavController()
     )
 }

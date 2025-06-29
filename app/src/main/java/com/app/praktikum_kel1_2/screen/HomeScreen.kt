@@ -4,54 +4,59 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.ui.Modifier
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.app.praktikum_kel1_2.navigation.Screen
 
-// Halaman Home yang berisi input nama dan tombol submit
+/**
+ * Composable `HomeScreen` menampilkan halaman utama berisi input nama
+ * dan tombol untuk navigasi ke halaman hasil (`ResultScreen`).
+ *
+ * @param navController controller navigasi untuk berpindah ke halaman berikutnya.
+ */
 @Composable
 fun HomeScreen(navController: NavController) {
-    // State untuk menyimpan teks yang diketik user
+    // State untuk menyimpan input teks dari pengguna
     var text by remember { mutableStateOf("") }
 
-    // Box untuk mengatur konten ke tengah layar
+    // Box digunakan untuk menempatkan elemen di tengah layar
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        // Kolom berisi label, input teks, dan tombol
+        // Kolom vertikal berisi teks label, input field, dan tombol
         Column(modifier = Modifier.padding(16.dp)) {
-            Text("Masukkan Nama:") // Label input
+            Text("Masukkan Nama:") // Label untuk input
             TextField(
-                value = text, // Nilai teks dari state
-                onValueChange = { text = it }, // Perubahan input disimpan ke state
+                value = text,
+                onValueChange = { text = it },
                 modifier = Modifier.fillMaxWidth()
             )
-            Spacer(modifier = Modifier.height(16.dp)) // Jarak antar komponen
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Tombol untuk menavigasi ke halaman Result dengan parameter nama
             Button(onClick = {
-                // Navigasi ke halaman Result dengan teks sebagai argumen
                 navController.navigate(route = Screen.Result.passText(text))
             }) {
-                Text("Submit") // Teks tombol
+                Text("Submit")
             }
         }
     }
 }
 
-// Preview untuk menampilkan tampilan HomeScreen di Android Studio
-@Composable
+/**
+ * Preview `HomeScreen` untuk ditampilkan di Android Studio Preview.
+ * Menggunakan dummy NavController untuk kebutuhan preview.
+ */
 @Preview(showBackground = true)
+@Composable
 fun HomeScreenView() {
     HomeScreen(
-        navController = rememberNavController() // Dummy navController untuk preview
+        navController = rememberNavController()
     )
 }
