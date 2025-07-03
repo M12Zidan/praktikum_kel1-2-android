@@ -20,9 +20,12 @@ import androidx.compose.ui.unit.sp
 import com.app.praktikum_kel1_2.model.response.NoteItem
 
 /**
- * NoteCard adalah komponen individual untuk menampilkan satu catatan.
+ * Komponen UI yang menampilkan tampilan ringkas dari satu catatan dalam bentuk kartu.
  *
- * @param note Objek NoteItem yang akan ditampilkan.
+ * Digunakan untuk menampilkan judul catatan, nama pembuat, dan isi catatan
+ * dalam batas maksimal 5 baris. Konten yang melebihi batas akan dipotong dengan ellipsis (...).
+ *
+ * @param note Objek [NoteItem] yang merepresentasikan data catatan yang akan ditampilkan.
  */
 @Composable
 fun NoteCard(note: NoteItem) {
@@ -50,7 +53,6 @@ fun NoteCard(note: NoteItem) {
                 color = Color.DarkGray
             )
             Spacer(modifier = Modifier.height(8.dp))
-
             Text(
                 text = note.content,
                 style = MaterialTheme.typography.bodyMedium,

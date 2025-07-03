@@ -1,13 +1,12 @@
 package com.app.praktikum_kel1_2.model.response
 
 /**
- * Data class `LoginResponse` merepresentasikan response dari server
- * setelah pengguna melakukan login.
+ * Representasi response dari server setelah proses login berhasil atau gagal.
  *
- * @param code kode status dari server (contoh: 200 untuk sukses).
- * @param message pesan status dari server (contoh: "Login berhasil").
- * @param data data pengguna yang berhasil login.
- * @param token token otentikasi yang diberikan server untuk sesi login.
+ * @property code Kode status HTTP dari server (contoh: 200 untuk sukses).
+ * @property message Pesan deskriptif dari hasil login (contoh: "Login berhasil").
+ * @property data Informasi pengguna yang berhasil login, jika tersedia.
+ * @property token Token autentikasi yang diberikan server untuk sesi pengguna.
  */
 data class LoginResponse(
     val code: Int,
@@ -17,10 +16,10 @@ data class LoginResponse(
 )
 
 /**
- * Data class `LoginData` menyimpan informasi pengguna setelah berhasil login.
+ * Informasi pengguna yang dikembalikan setelah proses login berhasil.
  *
- * @param uuid ID unik pengguna.
- * @param fullName nama lengkap pengguna.
+ * @property uuid ID unik pengguna (biasanya digunakan sebagai identifikasi global).
+ * @property fullName Nama lengkap pengguna.
  */
 data class LoginData(
     val uuid: String,
